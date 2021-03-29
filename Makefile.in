@@ -1,0 +1,71 @@
+CXX=@CXX@
+LD=@CXX@
+
+SYS := $(shell $(CXX) -dumpmachine)
+
+OBJECTS :=  solitaire.o 
+
+ifneq (,$(findstring mingw,$(SYS)))
+ OBJECTS += solitairerc.o
+endif
+
+LIBS=@LIBS@
+CXXFLAGS=@CXXFLAGS@
+CPPFLAGS=@CPPFLAGS@
+LDFLAGS=@LDFLAGS@
+
+WX_CPPFLAGS=@WX_CPPFLAGS@
+WX_CXXFLAGS_ONLY=@WX_CXXFLAGS_ONLY@
+WX_CFLAGS_ONLY=@WX_CFLAGS_ONLY@
+WX_LIBS=@WX_LIBS@
+WX_RESCOMP=@WX_RESCOMP@
+
+srcdir=@srcdir@
+VPATH=@srcdir@
+EXT=@EXEEXT@
+
+BUILDDATE=-DBUILDDATE='"$(shell date)"'
+VERSIONSTR=-DVERSION='"$(VERSION)"'
+
+
+all: solitaire
+
+solitaire:  $(OBJECTS) 
+	$(CXX) $(LDFLAGS) -o solitaire$(EXT) $(OBJECTS) $(WX_LIBS) $(LIBS) 
+
+ifneq (,$(findstring mingw,$(SYS)))
+solitairerc.o: $(srcdir)/solitaire.rc
+	$(WX_RESCOMP) $(srcdir)/solitaire.rc  -o$@
+endif
+
+solitaire.o: $(srcdir)/solitaire.cpp
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(WX_CPPFLAGS) -c $(srcdir)/solitaire.cpp  -o$@
+
+.PHONY: cleanall
+cleanall: clean 
+
+.PHONY: clean
+clean:
+	rm -f *.o solitaire*$(EXT)
+
+.PHONY: zip
+zip:
+ifdef VERSION
+	zip "solitaire-$(VERSION).zip" solitaire$(EXT)
+else
+	zip "solitaire.zip" solitaire$(EXT) 
+endif
+
+.PHONY: wininstaller-wine
+wininstaller-wine:
+	cp $(srcdir)/solitaire.iss .
+	$(srcdir)/inno.sh solitaire-$(VERSION) ./solitaire.iss
+
+.PHONY: wininstaller-msys2
+wininstaller-msys2:
+	cp $(srcdir)/readme.txt .
+	cp $(srcdir)/solitaire.iss .
+	"/c/Program Files (x86)/Inno Setup 6/ISCC" ./solitaire.iss
+
+
+
