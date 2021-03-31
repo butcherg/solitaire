@@ -237,17 +237,13 @@ public:
 	
 	void ClearCards()
 	{
-		deck.erase(deck.begin(), deck.end());
+		deck.clear();
 		RecomputeBounds();
 	}
 	
 	std::vector<Card> GetCards()
 	{
-		
-		std::vector<Card> d;
-		for (std::vector<Card>::iterator it=deck.begin(); it!=deck.end(); ++it)
-			d.push_back(*it);
-		return d;
+		return deck;
 	}
 	
 	Card& TopCard()
@@ -790,6 +786,7 @@ public:
 		int y = event.GetY();
 		
 		if (HitTest(x,y).GetName() == "nullstack") return;
+		if (HitTest(x,y).GetName() == "deck") return;
 		
 		DoubleClickRules(HitTest(x,y));
 	}
