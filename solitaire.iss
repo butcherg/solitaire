@@ -1,7 +1,7 @@
 
 
 #define MyAppName "solitaire"
-#define MyAppVersion "1.0"
+#define MyAppVersion "1.0.1"
 #define MyAppPublisher "Glenn Butcher"
 #define MyAppExeName "solitaire.exe"
 
