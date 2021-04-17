@@ -1243,12 +1243,7 @@ public:
 	
 	void OnAbout(wxCommandEvent& WXUNUSED(event))
 	{
-		wxMessageBox(wxString::Format
-		(
-			"This is a minimal Solitaire program\n"
-			"running under %s.\nSource Code is licensed GPL 3.0",
-			wxGetOsDescription()
-                 ),
+		wxMessageBox(wxT("This is a minimal Solitaire program.\n\nSource Code \u00A9 2021 Glenn Butcher, GPL 3.0 license, https://github.com/butcherg/solitaire.\nCard Deck \u00A9 2018 Howard Yeh, MIT license, https://github.com/hayeah/playing-cards-assets."),
                  "About Solitaire",
                  wxOK | wxICON_INFORMATION,
                  this);
