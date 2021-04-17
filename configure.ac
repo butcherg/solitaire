@@ -1,5 +1,5 @@
 AC_PREREQ([2.68])
-AC_INIT(solitaire, 1.0)
+AC_INIT(solitaire, 1.0.1)
 
 # MINGW_AC_WIN32_NATIVE_HOST
 # --------------------------
