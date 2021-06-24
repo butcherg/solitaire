@@ -493,7 +493,7 @@ public:
 	{
 		originstack = NULL;
 		//SetBackgroundColour(wxColour(34, 139, 34)); //forest green
-		SetBackgroundColour(wxColour(255, 255, 255));
+		SetBackgroundColour(wxColour(34, 100, 34));
 		SetDoubleBuffered(true);
 		
 		//for each stack in the game:
